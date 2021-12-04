@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    function sortArray(array){
+        for (let i = 0; i < array.length-1; i++) {
+            for (let j = 0; j < array.length-i-1; j++) {
+                if( array[j] > array[j+1]){
+                    let temp=array[j];
+                    array[j]=array[j+1];
+                    array[j+1]=temp;
+                }
+            }
+        }
+    }
+    function makeArray(){
+        event.preventDefault();
+        if(document.getElementById("string").value === ""){
+            document.getElementById("old-array").innerText="Nothing to sort.";
+        }
+        else{
+            let string=document.getElementById("string").value;
+            let patt = /(\+?-?[0-9]+)/g;
+            let array = string.match(patt);
+
+            if(array===null){
+                document.getElementById("old-array").innerText="Nothing to sort.";
+            }
+            else{
+                let changed_array=[];
+
+                for (const element of array) {
+                    changed_array.push(parseInt(element));
+                }
+
+                let unsorted=changed_array.join(",");
+                document.getElementById("old-array").innerText=`Unsorted Array:${unsorted}`;
+
+                sortArray(changed_array);
+
+                let sorted=changed_array.join(",");
+                document.getElementById("new-array").innerText=`Sorted Array:${sorted}`;
+            }
+        }
+
+        document.getElementById("string").value="";
+    }
+</script>
+<body>
+    <form action="BubbleSort.html">
+        <input type="text" name="string" id="string" >
+        <input type="submit" onclick="return makeArray()" value="submit">
+    </form>
+    <p id="old-array" style="color: coral;"></p>
+    <p id="new-array" style="color: brown;"></p>
+</body>
+</html>

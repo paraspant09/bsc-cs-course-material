@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2 id="date">Clock</h2>
+    <h1 style="color:green;" id="changeColor">Changing Color</h1>
+    <script>
+        let d,hrs,min,sec,meridian;
+        setInterval(()=>{
+            d=new Date();
+            hrs=(d.getHours()%12==0?12:d.getHours()%12);
+            min=d.getMinutes();
+            sec=d.getSeconds();
+            meridian=d.getHours()<12?"AM":"PM";
+            document.getElementById("date").innerText=
+                (hrs<10?`0${hrs}`:hrs)+":"+
+                (min<10?`0${min}`:min)+":"+
+                (sec<10?`0${sec}`:sec)+" "+meridian;
+        },1000);
+		
+		setTimeout(()=>{
+            document.getElementById("changeColor").style.color ="red";
+        },5000);
+    </script>
+</body>
+</html>

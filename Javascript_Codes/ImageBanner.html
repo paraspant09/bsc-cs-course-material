@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="overflow-x: hidden;margin: 0;">
+    <img id="Image" style="border: black 0.1rem solid;position: absolute;top: 10px;left: 0px;" src="dog.jpg" alt="Image" width="300" height="300">
+    <img id="Image2" style="border:black 0.1rem solid;position: absolute;top: 10px;left: 0px;" src="dog.jpg" alt="Image" width="300" height="300">
+    <button style="border: black 0.1rem solid;position: absolute;top: 400px;left: 20px;" onclick="start()">START</button>
+    <button style="border: black 0.1rem solid;position: absolute;top: 400px;left: 100px;" onclick="stop()">STOP</button>
+    <script>
+        var image_width=300;
+        var pos_img_one=image_width,pos_img_two=screen.availWidth*2;
+        var step_size=1;
+        var speed=0.00001;
+        var interval=null;
+        function start(){
+            if(interval==null){
+                interval=setInterval(() =>{
+                    document.getElementById("Image").style.transform=`translateX(${(pos_img_one-image_width)}px)`;
+                    document.getElementById("Image2").style.transform=`translateX(${(pos_img_two-screen.availWidth)}px)`;
+                    pos_img_one=(pos_img_one+step_size)%(screen.availWidth*2);
+                    pos_img_two=(pos_img_two+step_size)%(screen.availWidth*2);
+                },speed*1000);
+            }
+            else{
+                console.log("interval is there");
+            }
+        }
+        function stop(){
+            // console.log(interval);
+            clearInterval(interval);
+            interval=null;
+            // console.log(interval);
+        }
+    </script>
+</body>
+</html>

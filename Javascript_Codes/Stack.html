@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let stack=[];
+        function PUSH(){
+            event.preventDefault();
+            if(document.getElementById("string").value === ""){
+                document.getElementById("stack").innerText="Nothing to push";
+            }
+            else{
+                let string=document.getElementById("string").value;
+                let patt = /(\+?-?[0-9]+)/g;
+                let array = string.match(patt);
+
+                if(array===null){
+                    document.getElementById("stack").innerText="Nothing to push";
+                }
+                else{
+                    for (const element of array) {
+                        stack.push(parseInt(element));
+                    }
+
+                    let pushed_string=array.join(",");
+                    document.getElementById("stack").innerText=`Pushed:${pushed_string}`;
+                }
+            }
+            document.getElementById("string").value="";
+            Display();
+        }
+
+        function POP() {
+            event.preventDefault();
+            let message;
+            if(stack.length==0){
+                message="Empty Stack!!";
+            }
+            else{
+                message=`Popped element is:${stack.pop()}`;
+            }
+            document.getElementById("stack").innerText=message;
+            Display();
+        }
+
+        function Display() {
+            event.preventDefault();
+            let message;
+            if(stack.length==0){
+                message="Empty Stack!!";
+            }
+            else{
+                message="Stack is: ";
+                message+=stack.join(",");
+            }
+            document.getElementById("main-stack").innerText=message;
+        }
+    </script>
+</head>
+<body>
+    <form action="Stack.html">
+        <input type="text" name="string" id="string" >
+        <input type="submit" onclick="return PUSH()" value="PUSH">
+        <input type="submit" onclick="return POP()" value="POP">
+    </form>
+    <p id="stack" style="color: blue;"></p>
+
+    <p id="main-stack" style="color: blue;"></p>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Registration form</title>
+    <script type="text/javascript">
+      window.onload = function() {document.getElementById("name").focus();};
+
+      function check() {
+        event.preventDefault();
+        document.getElementById("message").style.color="red";
+        let name=document.getElementById("name");
+        let rollNo=document.getElementById("rollNo");
+        let dob=document.getElementById("dob");
+        let submit=document.getElementById("submit");
+
+        if(name.value==""){
+          console.log("Empty name field");
+          document.getElementById("message").innerText="Empty name field";
+          document.getElementById("name").focus();
+          return false;
+        }
+        if(rollNo.value==""){
+          console.log("Empty rollNo field");
+          document.getElementById("message").innerText="Empty rollNo field";
+          document.getElementById("rollNo").focus();
+          return false;
+        }
+        if(dob.value==""){
+          console.log("Empty dob field");
+          document.getElementById("message").innerText="Empty dob field";
+          document.getElementById("dob").focus();
+          return false;
+        }
+
+        let patt1 = /^[0-9]{7,7}$/g;
+        let result = patt1.test(rollNo.value);
+        // console.log(result);
+        if(!result){
+          console.log("Roll no must be numeric of 7 digits");
+          document.getElementById("message").innerText="Roll no must be numeric of 7 digits";
+          document.getElementById("rollNo").focus();
+          return false;
+        }
+
+        let patt2 = /[^a-zA-Z\s\t]+/g;
+        let result2 = patt2.test(name.value);
+        // console.log(result2);
+        if(result2){
+          console.log("Alphabetic name is required.");
+          document.getElementById("message").innerText="Alphabetic name is required.";
+          document.getElementById("name").focus();
+          return false;
+        }
+
+        let date = new Date(dob.value);
+        let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        document.getElementById("message").innerText=`All Correct.\nName:${name.value}\nRoll No:${rollNo.value}\nDOB:${days[date.getDay()]} , ${months[date.getMonth()]}  ${date.getDate()} , ${date.getFullYear()}`;
+        document.getElementById("message").style.color="blue";
+      }
+    </script>
+  </head>
+  <body>
+    <div>
+      <form class="form" action="Form.html" method="post">
+        <input id="name" type="text" name="Name" value="">
+        <input id="rollNo" type="number" name="RollNo" value="">
+        <input id="dob" type="date" name="DOB" value="">
+        <input id="submit" type="submit" name="Submit" onclick="return check();" value="Submit">
+      </form>
+      <p id="message"></p>
+    </div>
+  </body>
+</html>
